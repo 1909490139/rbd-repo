@@ -278,8 +278,4 @@ addExtraJavaArgs
 
 echo; echo "====================================="; echo
 
-if [ -n "$INSTANCE_LOCK_NAME" ];then
-    su-exec ${ARTIFACTORY_USER_NAME} instance_locker -n $INSTANCE_LOCK_NAME -c "${ARTIFACTORY_HOME}/bin/artifactory.sh"
-else
-    su-exec ${ARTIFACTORY_USER_NAME} ${ARTIFACTORY_HOME}/bin/artifactory.sh
-fi
+su-exec ${ARTIFACTORY_USER_NAME} ${ARTIFACTORY_HOME}/bin/artifactory.sh
