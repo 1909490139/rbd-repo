@@ -4,11 +4,6 @@ set -xe
 image_name="rbd-repo"
 release_ver=${1:-master}
 
-if [ "$release_type" == "" ];then
-  echo "please input release type (community | enterprise | all )"
-  exit 1
-fi
-
 function release(){
   ver=$1
 
