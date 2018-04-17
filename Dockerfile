@@ -43,8 +43,6 @@ VOLUME ${ARTIFACTORY_DATA}
 # Expose Tomcat's port
 EXPOSE 8081
 
-COPY instance_locker /usr/bin/instance_locker
-
 ENV RELEASE_DESC=__RELEASE_DESC__
 
 # Start the simple standalone mode of Artifactory
