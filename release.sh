@@ -1,8 +1,8 @@
 #!/bin/bash
 set -xe
 
-image_name="acp_repo"
-release_type=$1
+image_name="rbd-repo"
+release_ver=${1:-master}
 
 if [ "$release_type" == "" ];then
   echo "please input release type (community | enterprise | all )"
@@ -10,29 +10,16 @@ if [ "$release_type" == "" ];then
 fi
 
 function release(){
-  release_type=$1
-  release_ver=`grep ${release_type} VERSION | awk '{print $2}'`
-  branch_name=${release_type}-${release_ver}
-  git checkout $branch_name
+  ver=$1
 
   # get git describe info
-  release_desc=${branch_name}-`git rev-parse --short $branch_name`
+  release_desc=${ver}-`git rev-parse --short master`
 
   sed "s/__RELEASE_DESC__/${release_desc}/" Dockerfile > Dockerfile.release
 
-  docker build -t hub.goodrain.com/dc-deploy/${image_name}:${release_ver} -f Dockerfile.release . && rm -rf Dockerfile.release
-  docker push hub.goodrain.com/dc-deploy/${image_name}:${release_ver}
+  docker build -t rainbond/${image_name}:${release_ver} -f Dockerfile.release . && rm -rf Dockerfile.release
+  docker push rainbond/${image_name}:${release_ver}
 }
 
-case $release_type in
-"community")
-    release $1
-    ;;
-"enterprise")
-    release $1
-    ;;
-"all")
-    release "community"
-    release "enterprise"
-    ;;
-esac
+
+release $release_ver
