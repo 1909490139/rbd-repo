@@ -17,7 +17,7 @@ RUN apk add --no-cache tzdata wget curl bash su-exec && \
     echo "Asia/Shanghai" >  /etc/timezone && \
     date && apk del --no-cache tzdata
 
-ENV ARTIFACTORY_VER=5.3.0 \
+ENV ARTIFACTORY_VER=6.2.0 \
     DOWNLOAD_URL="http://goodrain-pkg.oss-cn-shanghai.aliyuncs.com"
 RUN mkdir -pv /opt/jfrog && \
     curl -q ${DOWNLOAD_URL}/artifactory-oss-${ARTIFACTORY_VER}.tar.gz | tar -xzC /opt/jfrog/ && \
