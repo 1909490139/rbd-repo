@@ -21,7 +21,7 @@ ENV ARTIFACTORY_VER=6.5.9 \
     DOWNLOAD_URL="http://goodrain-pkg.oss-cn-shanghai.aliyuncs.com"
 RUN mkdir -pv /opt/jfrog && \
     curl -q ${DOWNLOAD_URL}/artifactory-oss-${ARTIFACTORY_VER}.tar.gz | tar -xzC /opt/jfrog/ && \
-    curl -q ${DOWNLOAD_URL}/data.tar.gz | tar -xzC /tmp
+    curl -q ${DOWNLOAD_URL}/data-6.5.9.tar.gz | tar -xzC /tmp
 
 COPY entrypoint-artifactory.sh /
 # Extract artifactory zip and create needed directories and softlinks
