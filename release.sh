@@ -2,7 +2,7 @@
 set -xe
 
 image_name="rbd-repo"
-release_ver=${1:-5.0}
+release_ver=${1:-6.5.9}
 
 function release(){
   ver=$1
