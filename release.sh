@@ -2,7 +2,7 @@
 set -xe
 
 image_name="rbd-repo"
-release_ver=${1:-master}
+release_ver=${1:-6.5.9}
 
 function release(){
   ver=$1
@@ -13,7 +13,7 @@ function release(){
   sed "s/__RELEASE_DESC__/${release_desc}/" Dockerfile > Dockerfile.release
 
   docker build -t rainbond/${image_name}:${release_ver} -f Dockerfile.release . && rm -rf Dockerfile.release
-  docker push rainbond/${image_name}:${release_ver}
+  #docker push rainbond/${image_name}:${release_ver}
 }
 
 
