@@ -12,15 +12,18 @@ ENV ARTIFACTORY_USER_NAME=artifactory \
     RECOMMENDED_MAX_OPEN_PROCESSES=1024 \
     POSTGRESQL_VERSION=9.4.1212
 
-RUN apk add --no-cache tzdata wget curl bash su-exec && \
+RUN apk add --no-cache tzdata wget curl bash su-exec nginx && \
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     echo "Asia/Shanghai" >  /etc/timezone && \
     date && apk del --no-cache tzdata
 
-ENV ARTIFACTORY_VER=6.5.9 \
+ENV ARTIFACTORY_VER=6.16.0 \
     DOWNLOAD_URL="http://goodrain-pkg.oss-cn-shanghai.aliyuncs.com"
-RUN mkdir -pv /opt/jfrog && \
-    curl -q ${DOWNLOAD_URL}/artifactory-oss-${ARTIFACTORY_VER}.tar.gz | tar -xzC /opt/jfrog/ && \
+
+ADD artifactory.tgz /opt/jfrog/
+COPY rainbond.conf /etc/nginx/conf.d/
+
+RUN mkdir -pv /opt/jfrog && mkdir -pv /run/nginx && \
     curl -q ${DOWNLOAD_URL}/data-6.5.9.tgz | tar -xzC /tmp
 
 COPY entrypoint-artifactory.sh /
@@ -38,6 +41,7 @@ VOLUME ${ARTIFACTORY_DATA}
 
 # Expose Tomcat's port
 EXPOSE 8081
+EXPOSE 80
 
 ENV RELEASE_DESC=__RELEASE_DESC__
 

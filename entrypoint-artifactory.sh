@@ -4,6 +4,8 @@
 #
 [ $DEBUG ] && set -x
 
+/usr/sbin/nginx
+
 : ${ARTIFACTORY_HOME:=/opt/jfrog/artifactory}
 : ${ARTIFACTORY_DATA:=/var/opt/jfrog/artifactory}
 ART_ETC=$ARTIFACTORY_DATA/etc
